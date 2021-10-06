@@ -33,7 +33,11 @@ bld/
 [Ll]og/
 [Ll]ogs/
 
-!Release/run1-4.py
+!/Release/
+/Release/*.exe
+/Release/*.b
+/Release/*.txt
+
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
