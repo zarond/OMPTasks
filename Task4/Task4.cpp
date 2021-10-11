@@ -33,7 +33,7 @@ void generate_random(T* Data, unsigned int n) {
 T maxmin(const T* Mat, const int n, const int m) {
 	T max = MINLIMIT;
 	for (int i = 0; i < n; ++i) {
-		T min = Mat[i * n];
+		T min = Mat[i * m];
 		for (int j = 0; j < m; ++j) {
 			T v = Mat[i * m + j];
 			if (min > v)
@@ -49,7 +49,7 @@ T maxmin_omp(const T* Mat, const int n, const int m) {
 #pragma omp parallel for shared(max)
 	for (int i = 0; i < n; ++i) {
 		//std::cout << "hello from " << omp_get_thread_num() << "/" << omp_get_num_threads() << std::endl;
-		T min = Mat[i * n];
+		T min = Mat[i * m];
 		for (int j = 0; j < m; ++j) {
 			T v = Mat[i * m + j];
 			if (min > v)
@@ -70,7 +70,7 @@ T maxmin_omp_threadprivate(const T* Mat, const int n, const int m, int cores) {
 	#pragma omp parallel for copyin(max) schedule(static)
 	for (int i = 0; i < n; ++i) {
 		//std::cout << "hello from " << omp_get_thread_num() << "/" << omp_get_num_threads() << std::endl;
-		T min = Mat[i * n];
+		T min = Mat[i * m];
 		for (int j = 0; j < m; ++j) {
 			T v = Mat[i * m + j];
 			if (min > v)
@@ -122,7 +122,7 @@ T maxmin_omp_nested(const T* Mat, const int n, const int m, const int cores = 4)
 #pragma omp parallel for shared(max)
 	for (int i = 0; i < n; ++i) {
 		//std::cout << "hello from " << omp_get_thread_num() << "/" << omp_get_num_threads() << std::endl;
-		T min = min_omp( &Mat[i * n], n, cores);
+		T min = min_omp( &Mat[i * m], n, cores);
 		#pragma omp critical
 		if (max < min) max = min;
 	}

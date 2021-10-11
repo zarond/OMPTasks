@@ -85,7 +85,7 @@ void block_diag_matrix(T* Data, unsigned int n, unsigned  int l, int* offsets) {
 T maxmin(const T* Mat, const int n, const int m) {
 	T max = MINLIMIT;
 	for (int i = 0; i < n; ++i) {
-		T min = Mat[i * n];
+		T min = Mat[i * m];
 		for (int j = 0; j < m; ++j) {
 			T v = Mat[i * m + j];
 			if (min > v)
@@ -163,7 +163,7 @@ T maxmin_omp(const T* Mat, const int n, const int m) {
 	T max = MINLIMIT;
 #pragma omp parallel for shared(max) schedule(runtime)
 	for (int i = 0; i < n; ++i) {
-		T min = Mat[i * n];
+		T min = Mat[i * m];
 		for (int j = 0; j < m; ++j) {
 			T v = Mat[i * m + j];
 			if (min > v)
